@@ -3,15 +3,15 @@
 # or sudo access
 mysql_user_home: /root
 mysql_user_name: root
-mysql_user_password: root
+mysql_user_password: "{{ vault_mysql_root_password }}"
 
 # The default root user installed by mysql - almost always root
 mysql_root_home: /root
 mysql_root_username: root
-mysql_root_password: root
+mysql_root_password: "{{ vault_mysql_root_password }}"
 
 # Set this to `true` to forcibly update the root password.
-mysql_root_password_update: false
+mysql_root_password_update: true
 mysql_user_password_update: false
 
 mysql_enabled_on_startup: true
@@ -107,17 +107,17 @@ mysql_config_include_files: []
 
 # Databases.
 mysql_databases: []
-#   - name: example
-#     collation: utf8_general_ci
-#     encoding: utf8
-#     replicate: 1
+#  - name: buttercup
+#    collation: utf8mb4_general_ci
+#    encoding: utf8mb4
+#    replicate: 1
 
 # Users.
 mysql_users: []
-#   - name: example
-#     host: 127.0.0.1
-#     password: secret
-#     priv: *.*:USAGE
+#  - name: bubbles
+#    host: 127.0.0.1
+#    password: secret
+#    priv: '*.*:USAGE
 
 # Replication settings (replication is only enabled if master/user have values).
 mysql_server_id: "1"
