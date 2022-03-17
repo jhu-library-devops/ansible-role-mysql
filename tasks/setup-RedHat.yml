@@ -1,7 +1,18 @@
 ---
+- name: Setup MariaDB repo
+  ansible.builtin.shell: "curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --mariadb-server-version={{ __mysql_version }} --skip-maxscale --skip-tools"
+
 - name: Ensure MySQL packages are installed.
   yum:
     name: "{{ mysql_packages }}"
     state: present
     enablerepo: "{{ mysql_enablerepo | default(omit, true) }}"
   register: rh_mysql_install_packages
+
+- name: "Fix MariaDB error whereby /var/run/mariadb doesn't get created"
+  ansible.builtin.file:
+    path: /var/run/mariadb
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0755'
